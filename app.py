@@ -36,7 +36,7 @@ if "opened" not in st.session_state or not st.session_state.opened:
     st.stop()
 
 # Khi đã mở thư
-scrolling_message("<h1 style='text-align: center; color: #FF4081;'>💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸</h1>", unsafe_allow_html=True)
+scrolling_message("💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸)
 fireworks_display()
 
 # Thơ chúc mừng
