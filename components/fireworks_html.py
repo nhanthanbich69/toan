@@ -22,18 +22,34 @@ def fireworks_display():
             transform: translateX(-50%);
             text-align: center;
             z-index: 10;
-            color: #fff6a9;
+            color: #ff0000; /* đỏ rực */
             font-size: 30px;
             font-weight: bold;
             line-height: 1.8;
             text-shadow:
-                0 0 5px #ff00cc,
-                0 0 10px #ff00cc,
-                0 0 20px #ff00cc,
-                0 0 40px #ff66ff,
-                0 0 80px #ff66ff;
+                0 0 5px #ff0033,
+                0 0 10px #ff0033,
+                0 0 20px #ff3366,
+                0 0 30px #ff6699;
+        }
+        .heart {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: url('https://emoji.slack-edge.com/T0GKZLZSE/heart_bounce/795dc5e6e7cdcfaa.gif') no-repeat center center;
+            background-size: contain;
+            animation: float 6s infinite ease-in-out;
+            z-index: 5;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% {transform: translateY(0) scale(1);}
+            50% {transform: translateY(-100px) scale(1.2);}
+            100% {transform: translateY(0) scale(1);}
         }
     </style>
+
     <canvas id="fireworks"></canvas>
     <div class="poem-overlay">
         Nay sinh nhật bạn Toàn đây,<br>
@@ -45,6 +61,18 @@ def fireworks_display():
         Tuổi này sống khỏe, sống chill,<br>
         Tình duyên nườm nượp – chẳng lo kiếm tìm.
     </div>
+
+    <!-- ❤️ Thêm 20 trái tim bay ngẫu nhiên ❤️ -->
+    <script>
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.animationDelay = (Math.random() * 5) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
 
     <script>
     const canvas = document.getElementById('fireworks');
