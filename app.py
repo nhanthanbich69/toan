@@ -36,10 +36,10 @@ if not st.session_state.opened:
     </div>
     """, unsafe_allow_html=True)
 
-    # Đọc query param
-    if st.query_params.get("open") == "true":
+    # ✅ Đọc query param đúng cách
+    if "open" in st.query_params and st.query_params["open"] == ["true"]:
         st.session_state.opened = True
-        st.query_params.clear()
+        st.query_params.clear()  # Xoá param khỏi URL
         st.rerun()
 
 # Nội dung khi đã mở thư
