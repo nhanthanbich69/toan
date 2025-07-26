@@ -33,7 +33,7 @@ if query_params.get("open") != "true":
     <div class="envelope-container">
         <a href="?open=true" style="text-decoration: none;">
             <div class="envelope-emoji">💌</div>
-            <div class="envelope-text">Ấn để mở thư sinh nhật</div>
+            <div class="envelope-text">Ấn để mở</div>
         </a>
     </div>
     """, unsafe_allow_html=True)
