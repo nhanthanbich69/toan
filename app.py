@@ -3,7 +3,7 @@ from components.fireworks_html import fireworks_display
 from components.scrolling_text import scrolling_message
 from datetime import datetime
 
-st.set_page_config(layout="wide", page_title="Toàn", page_icon="💌")
+st.set_page_config(layout="wide", page_title="Toàn")
 
 query_params = st.query_params
 
