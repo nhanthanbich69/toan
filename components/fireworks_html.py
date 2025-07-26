@@ -13,8 +13,10 @@ def fireworks_display():
             top: 0;
             left: 0;
             z-index: 0;
-            filter: blur(1px) brightness(1.2); /* glow nhẹ */
+            filter: blur(1px) brightness(1.2);
         }
+
+        /* ✨ Chữ trắng viền đỏ sang trọng */
         .poem-overlay {
             position: fixed;
             top: 5%;
@@ -22,24 +24,24 @@ def fireworks_display():
             transform: translateX(-50%);
             text-align: center;
             z-index: 10;
-            color: #ff0000; /* đỏ rực */
+            color: white;
             font-size: 30px;
             font-weight: bold;
             line-height: 1.8;
+            -webkit-text-stroke: 1px red;
             text-shadow:
-                0 0 5px #ff0033,
-                0 0 10px #ff0033,
-                0 0 20px #ff3366,
-                0 0 30px #ff6699;
+                2px 2px 4px rgba(255,0,0,0.6);
         }
+
+        /* 💖 Trái tim bay bay */
         .heart {
             position: fixed;
-            width: 20px;
-            height: 20px;
-            background: url('https://emoji.slack-edge.com/T0GKZLZSE/heart_bounce/795dc5e6e7cdcfaa.gif') no-repeat center center;
+            width: 25px;
+            height: 25px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Red_Heart_Emoji.png/240px-Red_Heart_Emoji.png') no-repeat center center;
             background-size: contain;
             animation: float 6s infinite ease-in-out;
-            z-index: 5;
+            z-index: 3;
             opacity: 0.8;
         }
 
@@ -51,6 +53,7 @@ def fireworks_display():
     </style>
 
     <canvas id="fireworks"></canvas>
+
     <div class="poem-overlay">
         Nay sinh nhật bạn Toàn đây,<br>
         Chúc bạn lương lậu mỗi ngày tiến tới.<br>
@@ -62,8 +65,8 @@ def fireworks_display():
         Tình duyên nườm nượp – chẳng lo kiếm tìm.
     </div>
 
-    <!-- ❤️ Thêm 20 trái tim bay ngẫu nhiên ❤️ -->
     <script>
+        // ❤️ Thêm tim ngẫu nhiên
         for (let i = 0; i < 20; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart';
@@ -74,6 +77,7 @@ def fireworks_display():
         }
     </script>
 
+    <!-- 🔥 Firework script giữ nguyên -->
     <script>
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
