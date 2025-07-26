@@ -17,7 +17,7 @@ def fireworks_display():
         }
         .poem-overlay {
             position: fixed;
-            top: 8%;
+            top: 5%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
