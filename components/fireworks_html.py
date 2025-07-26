@@ -6,7 +6,7 @@ def fireworks_display():
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #ffc0cb;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Gradient xanh ngầu */
         }
         canvas {
             position: fixed;
@@ -23,12 +23,14 @@ def fireworks_display():
             transform: translateX(-50%);
             text-align: center;
             z-index: 10;
-            color: white;
+            color: gold;
             font-size: 30px;
             font-weight: bold;
             line-height: 1.8;
-            -webkit-text-stroke: 1px red;
-            text-shadow: 2px 2px 4px rgba(255,0,0,0.6);
+            -webkit-text-stroke: 1px black;
+            text-shadow:
+                2px 2px 6px rgba(0,0,0,0.7),
+                0 0 10px rgba(255,215,0,0.6);
         }
     </style>
 
