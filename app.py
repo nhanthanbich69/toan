@@ -3,7 +3,7 @@ from components.fireworks_html import fireworks_display
 from components.scrolling_text import scrolling_message
 from datetime import datetime
 
-st.set_page_config(layout="wide", page_title="Toàn")
+st.set_page_config(layout="wide", page_title="Toàn", page_icon="📬")
 
 query_params = st.query_params
 
@@ -32,7 +32,7 @@ if query_params.get("open") != "true":
 
     <div class="envelope-container">
         <a href="?open=true" style="text-decoration: none;">
-            <div class="envelope-emoji">💌</div>
+            <div class="envelope-emoji">📬</div>
             <div class="envelope-text">Ấn để mở</div>
         </a>
     </div>
