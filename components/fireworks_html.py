@@ -6,7 +6,7 @@ def fireworks_display():
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #ffc0cb; /* nền hồng cute */
+            background-color: #ffc0cb;
         }
         canvas {
             position: fixed;
@@ -16,7 +16,6 @@ def fireworks_display():
             filter: blur(1px) brightness(1.2);
         }
 
-        /* ✨ Chữ trắng viền đỏ sang trọng */
         .poem-overlay {
             position: fixed;
             top: 5%;
@@ -29,26 +28,7 @@ def fireworks_display():
             font-weight: bold;
             line-height: 1.8;
             -webkit-text-stroke: 1px red;
-            text-shadow:
-                2px 2px 4px rgba(255,0,0,0.6);
-        }
-
-        /* 💖 Trái tim bay bay */
-        .heart {
-            position: fixed;
-            width: 25px;
-            height: 25px;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Red_Heart_Emoji.png/240px-Red_Heart_Emoji.png') no-repeat center center;
-            background-size: contain;
-            animation: float 6s infinite ease-in-out;
-            z-index: 3;
-            opacity: 0.8;
-        }
-
-        @keyframes float {
-            0% {transform: translateY(0) scale(1);}
-            50% {transform: translateY(-100px) scale(1.2);}
-            100% {transform: translateY(0) scale(1);}
+            text-shadow: 2px 2px 4px rgba(255,0,0,0.6);
         }
     </style>
 
@@ -65,19 +45,6 @@ def fireworks_display():
         Tình duyên nườm nượp – chẳng lo kiếm tìm.
     </div>
 
-    <script>
-        // ❤️ Thêm tim ngẫu nhiên
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = Math.random() * 100 + 'vh';
-            heart.style.animationDelay = (Math.random() * 5) + 's';
-            document.body.appendChild(heart);
-        }
-    </script>
-
-    <!-- 🔥 Firework script giữ nguyên -->
     <script>
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
@@ -136,8 +103,6 @@ def fireworks_display():
             this.speed = Math.random() * 12 + 3;
             this.friction = 0.92;
             this.gravity = 1.2;
-            this.hue = Math.random() * 360;
-            this.brightness = Math.random() * 50 + 50;
             this.alpha = 1;
             this.decay = Math.random() * 0.015 + 0.01;
         }
@@ -153,15 +118,26 @@ def fireworks_display():
         }
 
         draw() {
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(0.3, 0.3);
             ctx.beginPath();
-            ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(0, -3, -5, -15, -15, -15);
+            ctx.bezierCurveTo(-35, -15, -35, 10, -35, 10);
+            ctx.bezierCurveTo(-35, 25, -20, 40, 0, 50);
+            ctx.bezierCurveTo(20, 40, 35, 25, 35, 10);
+            ctx.bezierCurveTo(35, 10, 35, -15, 15, -15);
+            ctx.bezierCurveTo(5, -15, 0, -3, 0, 0);
+            ctx.closePath();
+            ctx.fillStyle = `hsla(0, 100%, 70%, ${this.alpha})`;
             ctx.fill();
+            ctx.restore();
         }
     }
 
     function createParticles(x, y) {
-        const count = 60;
+        const count = 40;
         for (let i = 0; i < count; i++) {
             particles.push(new Particle(x, y));
         }
