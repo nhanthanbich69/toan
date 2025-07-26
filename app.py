@@ -21,7 +21,7 @@ if not st.session_state.opened:
 
     if st.button("📨 Mở thư sinh nhật", use_container_width=True):
         st.session_state.opened = True
-        st.experimental_rerun()
+        st.rerun()
 
 # Nội dung khi đã mở thư
 else:
