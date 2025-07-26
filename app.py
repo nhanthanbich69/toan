@@ -9,28 +9,24 @@ st.set_page_config(layout="wide", page_title="🎉 Thư", page_icon="💌")
 if "opened" not in st.session_state:
     st.session_state.opened = False
 
-# Hiển thị bức thư nếu chưa mở
+# Hiển thị bì thư nếu chưa mở
 if not st.session_state.opened:
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.markdown("""
-        <div style='text-align: center;'>
-            <h2 style="color: #FF4081;">💌 Ấn vào 💌</h2>
-            <p>Click để mở 🎁</p>
+        <div style='text-align: center; margin-top: 200px;'>
+            <div style="font-size: 100px;">💌</div>
+            <div style="font-size: 24px; color: #FF4081;">Ấn để mở thư</div>
         </div>
     """, unsafe_allow_html=True)
 
+    # Nút mở thư
     if st.button("📨 Mở thư sinh nhật", use_container_width=True):
         st.session_state.opened = True
         st.rerun()
 
 # Nội dung khi đã mở thư
 else:
-    # Text chạy bling bling
     scrolling_message("<h1 style='text-align: center; color: #FF4081;'>💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸</h1>")
-
-    # Pháo hoa + thơ overlay đã gắn trong fireworks_display()
     fireworks_display()
-
     st.markdown("---")
     st.markdown(
         f"<p style='text-align: center;'>© {datetime.now().year} | Made with 💖 by những người bạn</p>",
