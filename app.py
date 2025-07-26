@@ -6,8 +6,7 @@ from datetime import datetime
 
 st.set_page_config(layout="wide", page_title="Chúc mừng sinh nhật Lăng Quốc Toàn", page_icon="🎉")
 # Text chạy ngang cực "bling bling"
-scrolling_message("<h1 style='text-align: center; color: #FF4081;'>💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸</h1>", unsafe_allow_html=True)
-
+scrolling_message("<h1 style='text-align: center; color: #FF4081;'>💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸</h1>")
 fireworks_display()
 
 # Thơ chúc mừng — chuyển \n thành <br> để hiển thị đúng dòng
