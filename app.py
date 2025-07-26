@@ -1,65 +1,61 @@
 import streamlit as st
-from datetime import datetime
 from components.fireworks_html import fireworks_display
 from components.scrolling_text import scrolling_message
+from datetime import datetime
 
-st.set_page_config(layout="wide", page_title="Chúc mừng sinh nhật Lăng Quốc Toàn", page_icon="🎉")
+st.set_page_config(layout="wide", page_title="🎉 Toàn", page_icon="💌")
 
-# Sử dụng API mới thay cho experimental
-query_params = st.query_params
+# Khởi tạo trạng thái
+if "opened" not in st.session_state:
+    st.session_state.opened = False
 
-if "open" in query_params and query_params["open"] == "true":
-    st.session_state.opened = True
-    st.query_params.clear()  # Xóa query sau khi đọc
-    st.rerun()
+# Nếu chưa mở, hiển thị icon thư
+if not st.session_state.opened:
 
-# Nếu chưa mở thư thì hiển thị nút "Mở thư"
-if "opened" not in st.session_state or not st.session_state.opened:
-    st.markdown(
-        """
-        <div style='display: flex; justify-content: center; align-items: center; height: 90vh;'>
-            <a href='?open=true' style='
-                background-color: #FF4081;
-                padding: 20px 40px;
-                font-size: 28px;
-                color: white;
-                text-decoration: none;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            '>
-                📬 Ấn để mở
-            </a>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-    st.stop()
+    # Giao diện thư
+    st.markdown("""
+    <style>
+    .envelope-container {
+        text-align: center;
+        margin-top: 200px;
+        cursor: pointer;
+    }
+    .envelope-emoji {
+        font-size: 120px;
+        transition: transform 0.3s ease;
+    }
+    .envelope-emoji:hover {
+        transform: scale(1.1);
+    }
+    .envelope-text {
+        font-size: 24px;
+        color: #FF4081;
+    }
+    </style>
+
+    <div class="envelope-container">
+        <a href="?open=true" style="text-decoration: none;">
+            <div class="envelope-emoji">💌</div>
+            <div class="envelope-text">Ấn để mở</div>
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Kiểm tra query param
+    query_params = st.experimental_get_query_params()
+    if query_params.get("open") == ["true"]:
+        st.session_state.opened = True
+        # Xóa param để không hiện trên URL
+        st.experimental_set_query_params()
+        st.experimental_rerun()
 
 # Khi đã mở thư
-scrolling_message("💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸)
-fireworks_display()
-
-# Thơ chúc mừng
-poem = """
-Nay sinh nhật bạn Toàn đây,  
-Chúc bạn lương lậu mỗi ngày tiến tới.  
-Công nợ khớp đúng từng nơi,  
-Deadline kịp lúc, thảnh thơi buổi chiều.  
-
-Tiền vô chẳng thiếu, chẳng nhầm,  
-Hạch toán chính xác, chẳng cần lo chi.  
-Tuổi này sống khỏe, sống chill,  
-Tình duyên nườm nượp - chẳng lo kiếm tìm.
-"""
-
-poem_html = poem.strip().replace('\n', '<br>')
-st.markdown(
-    f"<p style='font-size: 20px; color: #00BCD4; text-align: center; margin-top: 50px;'>{poem_html}</p>",
-    unsafe_allow_html=True
-)
-
-st.markdown("---")
-st.markdown(
-    f"<p style='text-align: center;'>© {datetime.now().year} | Made with 💖 by những người yêu Toàn</p>",
-    unsafe_allow_html=True
-)
+else:
+    scrolling_message("<h1 style='text-align: center; color: #FF4081;'>💖 Chúc Mừng Sinh Nhật Lăng Quốc Toàn 💸</h1>")
+    fireworks_display()
+    
+    st.markdown("---")
+    st.markdown(
+        f"<p style='text-align: center;'>© {datetime.now().year} | Made with 💖 by những người bạn</p>",
+        unsafe_allow_html=True
+    )
