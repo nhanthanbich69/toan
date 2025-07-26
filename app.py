@@ -30,17 +30,16 @@ if not st.session_state.opened:
     }
     </style>
 
-    <div class="envelope-container" onclick="fetch('/?open=true').then(() => window.location.reload())">
+    <div class="envelope-container" onclick="window.location.search = '?open=true'">
         <div class="envelope-emoji">💌</div>
         <div class="envelope-text">Ấn để mở</div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Trick để cập nhật trạng thái
-    query_params = st.experimental_get_query_params()
-    if "open" in query_params:
+    # Đọc query param
+    if st.query_params.get("open") == "true":
         st.session_state.opened = True
-        st.experimental_set_query_params()  # Clear param
+        st.query_params.clear()  # Xoá param khỏi URL sau khi xử lý
         st.rerun()
 
 # Nội dung khi đã mở thư
