@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from components.fireworks_html import fireworks_display
 from components.scrolling_text import scrolling_message
 from datetime import datetime
@@ -9,11 +10,22 @@ st.markdown("<h1 style='text-align: center; color: #FF4081;'>🎂 Chúc Mừng S
 
 fireworks_display()
 
-st.audio("assets/music.mp3", autoplay=True)
+# Kiểm tra file audio có tồn tại không trước khi phát
+music_path = "assets/music.mp3"
+if os.path.exists(music_path):
+    st.audio(music_path, autoplay=True)
+else:
+    st.warning("🎵 File nhạc không tồn tại, bỏ qua phần nhạc nhé!")
 
-st.image("assets/birthday.gif", use_column_width=True)
+# Hiển thị ảnh gif nếu có
+gif_path = "assets/birthday.gif"
+if os.path.exists(gif_path):
+    st.image(gif_path, use_column_width=True)
+else:
+    st.warning("🎁 Ảnh gif chúc mừng chưa có, bạn có thể thêm vào thư mục 'assets'.")
 
-scrolling_message("Chúc Toàn luôn vui vẻ, sự nghiệp như diều gặp gió, tiền vào như nước")
+# Text chạy ngang cực "bling bling"
+scrolling_message("💖 Chúc Toàn luôn vui vẻ, sự nghiệp như diều gặp gió, tiền vào như nước 💸")
 
 # Thơ chúc mừng — chuyển \n thành <br> để hiển thị đúng dòng
 poem = """
@@ -28,9 +40,7 @@ Tuổi này sống khỏe, sống chill,
 Tình duyên nườm nượp - chẳng lo kiếm tìm.
 """
 
-# Chuyển \n thành <br> để hiển thị thơ đúng dòng trong HTML
 poem_html = poem.strip().replace('\n', '<br>')
-
 st.markdown(
     f"<p style='font-size: 20px; color: #00BCD4; text-align: center;'>{poem_html}</p>",
     unsafe_allow_html=True
