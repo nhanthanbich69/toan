@@ -33,7 +33,7 @@ if os.path.exists(gif_path):
     st.image(gif_path, use_column_width=True)
 
 # Dòng chữ cuộn
-scrolling_message("Chúc Toàn luôn vui vẻ, sự nghiệp như diều gặp gió, tiền vào như nước, ế bớt lại giúp tụi tao với 😤")
+scrolling_message("Nay sinh nhật bạn Toàn đây, Chúc bạn lương lậu mỗi ngày tiến tới. Công nợ khớp đúng từng nơi, Deadline kịp lúc, thảnh thơi buổi chiều. 😤")
 
 # Thơ chúc mừng
 poem = """
