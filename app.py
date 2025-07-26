@@ -30,7 +30,7 @@ if not st.session_state.opened:
     }
     </style>
 
-    <div class="envelope-container" onclick="window.location.search = '?open=true'">
+    <div class="envelope-container" onclick="window.location.href = window.location.pathname + '?open=true'">
         <div class="envelope-emoji">💌</div>
         <div class="envelope-text">Ấn để mở</div>
     </div>
@@ -39,7 +39,7 @@ if not st.session_state.opened:
     # Đọc query param
     if st.query_params.get("open") == "true":
         st.session_state.opened = True
-        st.query_params.clear()  # Xoá param khỏi URL sau khi xử lý
+        st.query_params.clear()
         st.rerun()
 
 # Nội dung khi đã mở thư
