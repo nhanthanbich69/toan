@@ -5,14 +5,15 @@ from components.scrolling_text import scrolling_message
 
 st.set_page_config(layout="wide", page_title="Chúc mừng sinh nhật Lăng Quốc Toàn", page_icon="🎉")
 
-# Lấy query param
-query_params = st.experimental_get_query_params()
-if "open" in query_params and query_params["open"] == ["true"]:
+# Sử dụng API mới thay cho experimental
+query_params = st.query_params
+
+if "open" in query_params and query_params["open"] == "true":
     st.session_state.opened = True
-    st.experimental_set_query_params()  # Xoá khỏi URL
+    st.query_params.clear()  # Xóa query sau khi đọc
     st.rerun()
 
-# Nếu chưa mở thư thì hiển thị nút
+# Nếu chưa mở thư thì hiển thị nút "Mở thư"
 if "opened" not in st.session_state or not st.session_state.opened:
     st.markdown(
         """
