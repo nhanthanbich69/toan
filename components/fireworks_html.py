@@ -6,12 +6,14 @@ def fireworks_display():
         body {
             margin: 0;
             overflow: hidden;
+            background-color: #ffc0cb; /* nền hồng cute */
         }
         canvas {
             position: fixed;
             top: 0;
             left: 0;
             z-index: 0;
+            filter: blur(1px) brightness(1.2); /* glow nhẹ */
         }
         .poem-overlay {
             position: fixed;
@@ -20,11 +22,16 @@ def fireworks_display():
             transform: translateX(-50%);
             text-align: center;
             z-index: 10;
-            color: #ffeb3b;
-            font-size: 28px;
+            color: #fff6a9;
+            font-size: 30px;
             font-weight: bold;
-            line-height: 1.6;
-            text-shadow: 2px 2px 5px #000;
+            line-height: 1.8;
+            text-shadow:
+                0 0 5px #ff00cc,
+                0 0 10px #ff00cc,
+                0 0 20px #ff00cc,
+                0 0 40px #ff66ff,
+                0 0 80px #ff66ff;
         }
     </style>
     <canvas id="fireworks"></canvas>
@@ -57,8 +64,8 @@ def fireworks_display():
             this.distance = this.y - this.ty;
             this.coordinates = [];
             this.angle = Math.atan2(this.ty - this.y, this.tx - this.x);
-            this.speed = 2;
-            this.acceleration = 1.05;
+            this.speed = 3;
+            this.acceleration = 1.1;
             this.brightness = Math.random() * 50 + 50;
             for (let i = 0; i < 3; i++) {
                 this.coordinates.push([this.x, this.y]);
@@ -73,7 +80,7 @@ def fireworks_display():
             const vy = Math.sin(this.angle) * this.speed;
             this.x += vx;
             this.y += vy;
-            if (Math.abs(this.y - this.ty) < 10) {
+            if (Math.abs(this.y - this.ty) < 15) {
                 createParticles(this.tx, this.ty);
                 fireworks.splice(index, 1);
             }
@@ -84,6 +91,7 @@ def fireworks_display():
             ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
             ctx.lineTo(this.x, this.y);
             ctx.strokeStyle = `hsl(${Math.random() * 360}, 100%, ${this.brightness}%)`;
+            ctx.lineWidth = 2;
             ctx.stroke();
         }
     }
@@ -93,13 +101,13 @@ def fireworks_display():
             this.x = x;
             this.y = y;
             this.angle = Math.random() * 2 * Math.PI;
-            this.speed = Math.random() * 10 + 1;
-            this.friction = 0.95;
-            this.gravity = 1;
+            this.speed = Math.random() * 12 + 3;
+            this.friction = 0.92;
+            this.gravity = 1.2;
             this.hue = Math.random() * 360;
             this.brightness = Math.random() * 50 + 50;
             this.alpha = 1;
-            this.decay = Math.random() * 0.01 + 0.01;
+            this.decay = Math.random() * 0.015 + 0.01;
         }
 
         update(index) {
@@ -114,14 +122,15 @@ def fireworks_display():
 
         draw() {
             ctx.beginPath();
-            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
             ctx.fillStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
             ctx.fill();
         }
     }
 
     function createParticles(x, y) {
-        for (let i = 0; i < 30; i++) {
+        const count = 60;
+        for (let i = 0; i < count; i++) {
             particles.push(new Particle(x, y));
         }
     }
@@ -143,7 +152,7 @@ def fireworks_display():
             p.draw();
         });
 
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.08) {
             fireworks.push(new Firework());
         }
     }
@@ -152,4 +161,4 @@ def fireworks_display():
     </script>
     """
 
-    st.components.v1.html(html_code, height=600)
+    st.components.v1.html(html_code, height=700)
