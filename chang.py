@@ -4,16 +4,22 @@ from components.fireworks_html import fireworks_display
 
 st.set_page_config(layout="wide", page_title="Quỳnh Trang 🎂", page_icon="🎉")
 
-query_params = st.query_params
+# ✅ Lấy query param đúng cách (Streamlit trả về list)
+open_param = st.query_params.get("open", ["false"])
+is_open = isinstance(open_param, list) and len(open_param) > 0 and open_param[0].lower() == "true"
 
-if query_params.get("open") != "true":
+# --- Nếu chưa mở thư ---
+if not is_open:
     st.markdown("""
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
+    
     body {
         background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
         font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
         height: 100vh;
     }
 
@@ -40,12 +46,13 @@ if query_params.get("open") != "true":
 
     .envelope-text {
         margin-top: 20px;
-        font-size: 20px;
+        font-size: clamp(16px, 4vw, 22px);
         color: white;
-        background: rgba(255,255,255,0.15);
+        background: rgba(255,255,255,0.2);
         padding: 10px 25px;
         border-radius: 25px;
         display: inline-block;
+        backdrop-filter: blur(6px);
     }
 
     a { text-decoration: none; }
@@ -59,8 +66,10 @@ if query_params.get("open") != "true":
     </div>
     """, unsafe_allow_html=True)
 
+# --- Nếu đã mở thư ---
 else:
     st.markdown("""
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
@@ -68,6 +77,7 @@ else:
         background: linear-gradient(120deg, #ffecd2 0%, #fcb69f 100%);
         font-family: 'Poppins', sans-serif;
         overflow: hidden;
+        margin: 0;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -77,11 +87,12 @@ else:
     .message-box {
         text-align: center;
         color: #FF4B91;
-        font-size: clamp(20px, 4vw, 40px);
+        font-size: clamp(20px, 4.5vw, 42px);
         line-height: 1.4em;
         font-weight: 600;
-        animation: fadeIn 1s ease;
         padding: 20px;
+        max-width: 90%;
+        animation: fadeIn 1s ease;
     }
 
     @keyframes fadeIn {
@@ -114,17 +125,23 @@ else:
         setTimeout(() => {
             box.style.animation = "fadeOut 1s ease forwards";
             setTimeout(() => {
-                index = (index + 1) % messages.length;
-                showMessage();
+                index++;
+                if (index < messages.length) {
+                    showMessage();
+                } else {
+                    // Dừng ở câu cuối cùng, không lặp lại
+                    box.style.animation = "fadeIn 1s ease forwards";
+                    box.innerHTML = messages[messages.length - 1];
+                }
             }, 1000);
-        }, 2800); // thời gian hiển thị mỗi câu
+        }, 2800);
     }
 
     showMessage();
     </script>
     """, unsafe_allow_html=True)
 
-    # Hiệu ứng pháo hoa nhẹ phía sau
+    # 💥 Pháo hoa chỉ xuất hiện khi đã mở
     fireworks_display()
 
     st.markdown(
