@@ -6,46 +6,19 @@ def fireworks_display():
         body {
             margin: 0;
             overflow: hidden;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Gradient xanh ngầu */
+            background: transparent; /* Cho phép lớp trên hiển thị */
         }
         canvas {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 0;
+            z-index: 0; /* nền dưới */
             filter: blur(1px) brightness(1.2);
-        }
-
-        .poem-overlay {
-            position: fixed;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 10;
-            color: gold;
-            font-size: 30px;
-            font-weight: bold;
-            line-height: 1.8;
-            -webkit-text-stroke: 1px black;
-            text-shadow:
-                2px 2px 6px rgba(0,0,0,0.7),
-                0 0 10px rgba(255,215,0,0.6);
+            pointer-events: none;
         }
     </style>
 
     <canvas id="fireworks"></canvas>
-
-    <div class="poem-overlay">
-        Nay sinh nhật bạn Toàn đây,<br>
-        Chúc bạn lương lậu mỗi ngày tiến tới.<br>
-        Công nợ khớp đúng từng nơi,<br>
-        Deadline kịp lúc, thảnh thơi buổi chiều.<br><br>
-        Tiền vô chẳng thiếu, chẳng nhầm,<br>
-        Hạch toán chính xác, chẳng cần lo chi.<br>
-        Tuổi này sống khỏe, sống chill,<br>
-        Tình duyên nườm nượp – chẳng lo kiếm tìm.
-    </div>
 
     <script>
     const canvas = document.getElementById('fireworks');
@@ -89,7 +62,10 @@ def fireworks_display():
 
         draw() {
             ctx.beginPath();
-            ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+            ctx.moveTo(
+                this.coordinates[this.coordinates.length - 1][0],
+                this.coordinates[this.coordinates.length - 1][1]
+            );
             ctx.lineTo(this.x, this.y);
             ctx.strokeStyle = `hsl(${Math.random() * 360}, 100%, ${this.brightness}%)`;
             ctx.lineWidth = 2;
@@ -114,9 +90,7 @@ def fireworks_display():
             this.x += Math.cos(this.angle) * this.speed;
             this.y += Math.sin(this.angle) * this.speed + this.gravity;
             this.alpha -= this.decay;
-            if (this.alpha <= 0) {
-                particles.splice(index, 1);
-            }
+            if (this.alpha <= 0) particles.splice(index, 1);
         }
 
         draw() {
@@ -171,4 +145,4 @@ def fireworks_display():
     </script>
     """
 
-    st.components.v1.html(html_code, height=700)
+    st.components.v1.html(html_code, height=0)  # ẩn vùng hiển thị, chỉ là nền
