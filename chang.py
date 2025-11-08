@@ -5,8 +5,9 @@ import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Quỳnh Trang 🎂", page_icon="🎉")
 
-open_param = st.query_params.get("open", ["false"])
-is_open = isinstance(open_param, list) and len(open_param) > 0 and open_param[0].lower() == "true"
+# 👉 FIX: Dùng API cũ để đảm bảo tương thích cloud
+query_params = st.experimental_get_query_params()
+is_open = query_params.get("open", ["false"])[0].lower() == "true"
 
 # --- Nếu chưa mở thư ---
 if not is_open:
@@ -64,7 +65,7 @@ if not is_open:
     </style>
 
     <div class="envelope-container">
-        <button onclick="window.location.search='?open=true'">
+        <button onclick="window.location.href='?open=true'">
             <div class="envelope-emoji">💌</div>
             <div class="envelope-text">Bấm để mở 🎁</div>
         </button>
