@@ -49,51 +49,9 @@ if not is_open:
         """, height=800)
 
 else:
-    # Xoá nội dung cũ
     placeholder.empty()
-
-    # Hiệu ứng pháo hoa
     fireworks_display()
 
-    # 💖 Thêm hiệu ứng trái tim bay (scrolling hearts)
-    components.html("""
-    <style>
-    body {
-        margin: 0;
-        overflow: hidden;
-        background: transparent;
-    }
-    .heart {
-        position: fixed;
-        top: -10px;
-        font-size: 20px;
-        color: #FF4081;
-        animation: fall 4s linear infinite;
-        z-index: 5;
-        opacity: 0.8;
-    }
-    @keyframes fall {
-        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
-    </style>
-
-    <script>
-    const hearts = ["💖", "💘", "💝", "💓", "💞", "💕"];
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 20 + 20 + "px";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    }
-    setInterval(createHeart, 300);
-    </script>
-    """, height=0)
-
-    # 🎂 Hiển thị lời chúc chính
     components.html("""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -102,10 +60,13 @@ else:
         font-family: 'Poppins', sans-serif;
         margin: 0;
         height: 100vh;
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
+
     .message-box {
         text-align: center;
         color: #FF4B91;
@@ -117,6 +78,22 @@ else:
         animation: fadeIn 1s ease forwards;
         z-index: 10;
     }
+
+    /* --- hiệu ứng tim bay --- */
+    .heart {
+        position: absolute;
+        top: -10px;
+        font-size: 20px;
+        color: #FF4081;
+        animation: fall 4s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeOut { from{opacity:1} to{opacity:0;transform:translateY(-20px)} }
     </style>
@@ -124,6 +101,20 @@ else:
     <div class="message-box" id="message-stage"></div>
 
     <script>
+    // 💖 tạo tim bay
+    const hearts = ["💖", "💘", "💝", "💓", "💞", "💕"];
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 300);
+
+    // 🎂 hiệu ứng dòng chữ
     const messages = [
         "Hôm nay nhân ngày kỉ niệm 2 thập kỉ và 2 năm ngày bạn Chang xuất hiện 💫",
         "Tớ chúc cậu luôn luôn hạnh phúc và yêu đời 💖",
@@ -140,7 +131,10 @@ else:
             setTimeout(() => {
                 index++;
                 if (index < messages.length) showMessage();
-                else { box.style.animation = "fadeIn 1s ease forwards"; box.innerHTML = messages[messages.length - 1]; }
+                else {
+                    box.style.animation = "fadeIn 1s ease forwards";
+                    box.innerHTML = messages[messages.length - 1];
+                }
             }, 1000);
         }, 2800);
     }
@@ -148,7 +142,6 @@ else:
     </script>
     """, height=800)
 
-    # Footer
     st.markdown(
         f"<p style='text-align:center;color:#00000070;font-family:Poppins;font-size:14px;margin-top:40px;'>© {datetime.now().year} | Made with 💗 for Quỳnh Trang</p>",
         unsafe_allow_html=True
