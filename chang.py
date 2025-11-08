@@ -1,20 +1,20 @@
 import streamlit as st
 from datetime import datetime
 from components.fireworks_html import fireworks_display
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Quỳnh Trang 🎂", page_icon="🎉")
 
-# ✅ Lấy query param đúng cách (Streamlit trả về list)
 open_param = st.query_params.get("open", ["false"])
 is_open = isinstance(open_param, list) and len(open_param) > 0 and open_param[0].lower() == "true"
 
 # --- Nếu chưa mở thư ---
 if not is_open:
-    st.markdown("""
+    components.html("""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-    
+
     body {
         background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
         font-family: 'Poppins', sans-serif;
@@ -64,11 +64,12 @@ if not is_open:
             <div class="envelope-text">Bấm để mở 🎁</div>
         </a>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=800)
 
 # --- Nếu đã mở thư ---
 else:
-    st.markdown("""
+    fireworks_display()
+    components.html("""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -76,8 +77,8 @@ else:
     body {
         background: linear-gradient(120deg, #ffecd2 0%, #fcb69f 100%);
         font-family: 'Poppins', sans-serif;
-        overflow: hidden;
         margin: 0;
+        overflow: hidden;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -87,12 +88,11 @@ else:
     .message-box {
         text-align: center;
         color: #FF4B91;
-        font-size: clamp(20px, 4.5vw, 42px);
+        font-size: clamp(20px, 4vw, 40px);
         line-height: 1.4em;
         font-weight: 600;
         padding: 20px;
         max-width: 90%;
-        animation: fadeIn 1s ease;
     }
 
     @keyframes fadeIn {
@@ -129,7 +129,6 @@ else:
                 if (index < messages.length) {
                     showMessage();
                 } else {
-                    // Dừng ở câu cuối cùng, không lặp lại
                     box.style.animation = "fadeIn 1s ease forwards";
                     box.innerHTML = messages[messages.length - 1];
                 }
@@ -139,10 +138,7 @@ else:
 
     showMessage();
     </script>
-    """, unsafe_allow_html=True)
-
-    # 💥 Pháo hoa chỉ xuất hiện khi đã mở
-    fireworks_display()
+    """, height=800)
 
     st.markdown(
         f"""
