@@ -21,6 +21,7 @@ if not is_open:
         margin: 0;
         padding: 0;
         height: 100vh;
+        overflow: hidden;
     }
 
     .envelope-container {
@@ -55,14 +56,18 @@ if not is_open:
         backdrop-filter: blur(6px);
     }
 
-    a { text-decoration: none; }
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
     </style>
 
     <div class="envelope-container">
-        <a href="?open=true">
+        <button onclick="window.location.search='?open=true'">
             <div class="envelope-emoji">💌</div>
             <div class="envelope-text">Bấm để mở 🎁</div>
-        </a>
+        </button>
     </div>
     """, height=800)
 
